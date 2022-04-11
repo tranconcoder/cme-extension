@@ -1,0 +1,26 @@
+> .box__header {
+	@include size(100%, 48px);
+	@include flex(row, center, space-between);
+	@include padHorizontal(20px);
+	border-bottom: 1px solid #d5d5d5;
+	box-sizing: border-box;
+
+	.header__title {
+		opacity: 0.8;
+		font-size: 20px;
+		font-family: "Signika", sans-serif;
+	}
+
+	.header__close-btn {
+		@include size(40px);
+		padding: 10px;
+		border-radius: 50%;
+		transition: ease 0.3s;
+		opacity: 0.8;
+
+		&:hover {
+			background-color: rgb(233, 233, 233);
+			cursor: pointer;
+		}
+	}
+}

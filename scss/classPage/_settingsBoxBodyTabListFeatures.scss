@@ -1,0 +1,62 @@
+&.features {
+	& > div {
+		@include size(100%, 48px);
+		@include flex(row, center, space-between);
+		margin-top: 24px;
+		box-sizing: border-box;
+
+		& > *:first-child {
+			@include size(90%, false);
+
+			& > h2 {
+				margin: 0;
+				font-size: 16px;
+				font-weight: 500;
+			}
+
+			& > span {
+				font-size: 14px;
+				opacity: 0.8;
+				display: block;
+				margin-top: 5px;
+			}
+		}
+
+		& > *:last-child {
+			@include size(10%, false);
+			cursor: pointer;
+
+			input {
+				display: none;
+
+				&:checked ~ .slider {
+					& {
+						background-color: $primaryColor;
+
+						&::before {
+							transform: translate(33px, -50%);
+						}
+					}
+				}
+			}
+
+			.slider {
+				@include size(60px, 30px);
+				@include position(relative);
+				background-color: #dfdfdf;
+				border-radius: 15px;
+				transition: ease 0.2s;
+
+				&::before {
+					@include pseudo();
+					@include size(24px);
+					@include position(absolute, 50%, false, false, 0);
+					transform: translate(3px, -50%);
+					border-radius: 50%;
+					background-color: #fff;
+					transition: ease 0.2s;
+				}
+			}
+		}
+	}
+}

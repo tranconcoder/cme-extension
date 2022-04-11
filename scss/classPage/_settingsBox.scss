@@ -1,0 +1,63 @@
+.settings-box__wrapper {
+	@include position(fixed, 0, 0, 0, 0);
+	@include flex(row, center, center);
+	z-index: 1000;
+	will-change: auto;
+	font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	ul,
+	ol,
+	li {
+		padding: 0;
+		list-style: none;
+	}
+
+	&:not(.show) {
+		pointer-events: none;
+
+		.wrapper__box {
+			opacity: 0;
+			transform: translateY(500px) scale(0.1);
+			transition: ease 0.5s;
+		}
+
+		.wrapper__background {
+			opacity: 0;
+			display: none;
+			transition: ease 0.5s;
+		}
+	}
+
+	&.show {
+		pointer-events: unset;
+
+		.wrapper__box {
+			opacity: 1;
+			transform: translateY(0px) scale(1);
+			transition: ease 0.3s;
+		}
+
+		.wrapper__background {
+			opacity: 1;
+			display: block;
+			transition: ease 0.3s;
+		}
+	}
+
+	.wrapper__box {
+		@include position(relative);
+		@include size(100%);
+		background-color: #fff;
+		z-index: 2;
+		will-change: transform opacity;
+
+		@import "./settingsBoxHeader";
+		@import "./settingsBoxBody";
+	}
+}

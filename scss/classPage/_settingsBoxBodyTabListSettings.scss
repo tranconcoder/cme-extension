@@ -1,0 +1,66 @@
+&.settings {
+	.settings__list-settings {
+		list-style: none;
+		padding: 0;
+		margin: 20px 0 0;
+
+		.list-settings__percent-mark {
+			@include flex(row, center, space-between);
+
+			.percent-mark__content {
+				.content__label {
+					font-size: 18px;
+					font-weight: 500;
+					opacity: 0.8;
+					margin: 0;
+				}
+
+				.content__desc {
+					font-size: 14px;
+
+					opacity: 0.5;
+				}
+			}
+
+			.percent-mark__input {
+				@include position(relative);
+				margin: 0 50px 0 15px;
+
+				&::before {
+					@include position(absolute, 50%, false, false, calc(100% + 6px));
+					content: "%";
+					display: block;
+					color: $primaryColorBlack;
+					font-size: 16px;
+					font-weight: 600;
+					transform: translateY(-50%);
+				}
+
+				input {
+					@include size(120px, 40px);
+					@include padHorizontal(10px);
+					color: $primaryColor;
+					font-size: 14px;
+					font-weight: 600;
+					border: 2px solid #dfdfdf;
+					border-radius: 5px;
+					background-color: #dfdfdf;
+					box-sizing: border-box;
+					text-align: center;
+					transition: ease 300ms;
+
+					&::-webkit-outer-spin-button,
+					&::-webkit-inner-spin-button {
+						-webkit-appearance: none;
+						margin: 0;
+					}
+					-moz-appearance: textfield;
+
+					&:focus {
+						border-color: $primaryColor;
+					}
+				}
+			}
+		}
+	}
+}

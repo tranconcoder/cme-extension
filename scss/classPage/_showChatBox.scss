@@ -1,0 +1,133 @@
+.cmt-box-wrapper {
+	@include position(fixed, 0, 0, 0, 0);
+	z-index: 9999;
+	pointer-events: none;
+	font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	ul,
+	ol,
+	li {
+		padding: 0;
+		list-style: none;
+	}
+
+	&.show {
+		pointer-events: unset;
+
+		> .cmt-box-wrapper__background {
+			opacity: 1;
+		}
+
+		> .cmt-box-wrapper__box {
+			opacity: 1;
+			transform: translate(50%, -50%) scale(1);
+		}
+	}
+
+	> .cmt-box-wrapper__background {
+		@include position(absolute, 0, 0, 0, 0);
+		background: rgba(#000000, 0.15);
+		backdrop-filter: blur(2px);
+		z-index: 1;
+		opacity: 0;
+		transition: ease 300ms;
+		will-change: opacity;
+	}
+
+	> .cmt-box-wrapper__box {
+		@include size(800px, false);
+		@include maxSize(90%);
+		@include position(absolute, 50%, 50%);
+		background: #fff;
+		box-shadow: 0 0 5px 0 rgba(#000000, 0.1);
+		transform: translate(50%, 500px) scale(0);
+		opacity: 0;
+		border-radius: 8px;
+		transition: ease 300ms;
+		z-index: 2;
+		will-change: opacity transform;
+
+		.box__header {
+			@include size(100%, 50px);
+			@include flex(row, center, space-between);
+			@include padHorizontal(30px);
+			border-bottom: 2px solid #efefef;
+
+			p {
+				font-size: 15px;
+				font-weight: 500;
+				color: #777;
+			}
+		}
+
+		.box__body {
+			@include minSize(false, 60px);
+			@include maxSize(false, calc(90% - 50px));
+			overflow-y: auto;
+			padding: 20px;
+			box-sizing: content-box;
+
+			> .body__cmt-list {
+				$cmtElmSeparate: 10px;
+
+				> .cmt-list__cmt {
+					@include flex(row, center, space-between);
+					padding: 5px 10px;
+					background: #f1f1f1;
+					overflow: hidden;
+
+					&.first {
+						@include flex(column-reverse, flex-start);
+						margin-top: $cmtElmSeparate;
+						border-radius: 5px 5px 0 0;
+						padding-top: 10px;
+
+						> time {
+							align-self: flex-end;
+						}
+					}
+
+					&:first-child {
+						&.first {
+							margin-top: 0;
+						}
+					}
+
+					&.last {
+						border-radius: 0 0 5px 5px;
+						padding-bottom: 10px;
+					}
+
+					&:not(.first) {
+						time {
+							display: none;
+						}
+					}
+
+					> span,
+					> time {
+						color: #444;
+						font-size: 14px;
+						line-height: 1.1;
+					}
+
+					> span {
+						flex: 1;
+						word-wrap: break-word;
+						margin-right: 10px;
+					}
+
+					> time {
+						font-weight: 500;
+					}
+				}
+			}
+		}
+	}
+}

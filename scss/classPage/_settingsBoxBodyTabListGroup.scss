@@ -1,0 +1,326 @@
+&.group {
+	.group__create-meeting-btn {
+		@include size(260px, 90px);
+		@include flex(row, center, center);
+		background-color: white;
+		border-radius: 10px;
+		box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+		color: $textColor;
+		cursor: pointer;
+		transition: background-color ease 300ms;
+		will-change: background-color;
+
+		&:hover {
+			background-color: $textColor;
+			color: white;
+			box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
+		}
+
+		i {
+			font-size: 30px;
+			transition: ease 300ms;
+		}
+
+		p {
+			margin-left: 10px;
+			font-size: 16px;
+			font-weight: 500;
+			transition: ease 300ms;
+		}
+	}
+
+	> .group__table-wrapper,
+	> .group__table-timeout-wrapper {
+		$brsSize: 10px;
+
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+		border-radius: $brsSize;
+		margin-top: 40px;
+		padding: 10px;
+		overflow: hidden;
+
+		& {
+			&.group__table-wrapper {
+				background-image: linear-gradient(
+					135deg,
+					$primaryColor,
+					$primaryColorDark
+				);
+
+				> .table-wrapper__caption {
+					> .caption__content-box {
+						padding-right: 10px;
+
+						> * {
+							text-align: right;
+						}
+					}
+
+					> img {
+						@include size(false, 200px);
+					}
+				}
+			}
+
+			&.group__table-timeout-wrapper {
+				background-image: linear-gradient(135deg, #c400ff, #8000ff);
+
+				> .table-timeout-wrapper__caption {
+					> .caption__content-box {
+						padding-left: 10px;
+					}
+
+					> img {
+						@include size(false, 250px);
+					}
+				}
+
+				> .table-timeout-wrapper__table {
+					> .table__head {
+						.head__row {
+							.row__group-name {
+								@include size(20%, false);
+							}
+
+							.row__group-class {
+								@include size(10%, false);
+							}
+
+							.row__group-timeout {
+								@include size(30%, false);
+							}
+
+							.row__group-timeout {
+								@include size(30%, false);
+							}
+
+							.row__group-members {
+								@include size(30%, false);
+							}
+
+							.row__group-edit {
+								@include size(10%, false);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		> .table-wrapper__caption,
+		> .table-timeout-wrapper__caption {
+			$height: 220px;
+
+			@include size(100%, $height);
+			@include flex(row, center, space-between);
+			padding: 0 20px;
+
+			> * {
+				@include size(50%, false);
+			}
+
+			> img {
+				-webkit-user-drag: none;
+			}
+
+			> .caption__content-box {
+				$padSize: 10px;
+
+				color: #fff;
+				text-align: left;
+
+				> h2 {
+					font-size: 26px;
+					font-weight: bolder;
+				}
+
+				> p {
+					font-size: 16px;
+					font-weight: 500;
+				}
+			}
+		}
+
+		> .table-wrapper__table,
+		> .table-timeout-wrapper__table {
+			@include size(100%, false);
+			background-color: #fff;
+			border-radius: inherit;
+			table-layout: auto;
+			color: #575757;
+			font-size: 15px;
+			border-collapse: separate;
+			border-spacing: 0px;
+			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
+			> .table__head {
+				.head__row {
+					@include size(false, 50px);
+
+					& > * {
+						text-align: center;
+						border-bottom: 1px solid #ececec;
+					}
+
+					.row__group-name {
+						@include size(20%, false);
+					}
+
+					.row__group-class {
+						@include size(10%, false);
+					}
+
+					.row__group-start {
+						@include size(15%, false);
+					}
+
+					.row__group-end {
+						@include size(15%, false);
+					}
+
+					.row__group-timeout {
+						@include size(30%, false);
+					}
+
+					.row__group-members {
+						@include size(15%, false);
+					}
+
+					.row__group-meet-link {
+						@include size(15%, false);
+					}
+
+					.row__group-edit {
+						@include size(10%, false);
+					}
+				}
+			}
+
+			> .table__body {
+				$brsSize: 6px;
+
+				> .body__row {
+					$rowHeight: 50px;
+
+					@include size(100%, $rowHeight);
+					transition: ease 300ms;
+					animation: showRow 300ms ease forwards;
+
+					&.hide {
+						animation: hideRow 400ms ease forwards;
+					}
+
+					&:hover {
+						background-color: #f7f7f7;
+					}
+
+					&:not(:first-child) {
+						margin-top: 10px;
+					}
+
+					& > *:first-child {
+						border-radius: $brsSize 0 0 $brsSize;
+					}
+
+					& > *:last-child {
+						border-radius: 0 $brsSize $brsSize 0;
+					}
+
+					.row__group-name {
+						padding-left: 10px;
+					}
+
+					.row__group-class,
+					.row__group-start,
+					.row__group-end,
+					.row__group-timeout,
+					.row__group-meet-link {
+						text-align: center;
+					}
+
+					.row__group-members {
+						@include size(false, 100%);
+
+						div {
+							@include flex(row, center, space-evenly);
+							padding: 5px 10px;
+							border-radius: 50px;
+							background-color: #fff;
+
+							& > * {
+								transition: ease 200ms;
+							}
+
+							&:hover {
+								cursor: pointer;
+								background-color: #fafafa;
+								color: $primaryColor;
+							}
+
+							i {
+								font-size: 15px;
+							}
+						}
+					}
+
+					.row__group-edit {
+						@include size(false, $rowHeight);
+						@include flex(row, center, center);
+
+						> i {
+							@include size(30px);
+							@include flex(row, center, center);
+							border-radius: 50%;
+							font-size: 16px;
+							transition: background-color ease 300ms;
+
+							&:hover {
+								cursor: pointer;
+								background-color: #d6d6d6;
+							}
+						}
+
+						> i:not(:last-child) {
+							color: $primaryColor;
+						}
+
+						> i:last-child {
+							color: $secondColor;
+						}
+					}
+
+					@keyframes showRow {
+						from {
+							transform: scaleY(0.5);
+							opacity: 0;
+						}
+						to {
+							transform: scaleY(1);
+							opacity: 1;
+						}
+					}
+
+					@keyframes hideRow {
+						from {
+							transform: scaleY(1);
+							opacity: 1;
+						}
+						to {
+							transform: scaleY(0.5);
+							opacity: 0;
+						}
+					}
+				}
+			}
+
+			> .table__foot {
+				height: 50px;
+
+				> tr > td {
+					color: #919191;
+					text-align: center;
+				}
+			}
+		}
+	}
+}

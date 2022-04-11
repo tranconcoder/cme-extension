@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+ul,
+ol,
+li {
+	padding: 0;
+	list-style: none;
+}
+
+@page {
+	size: 1300px 1300px;
+	margin: 50px;
+}
+
+@media print {
+	body {
+		@include size(1200px, false);
+		margin: 0px !important;
+
+		.attendance-page {
+			.attendance-page__print-btn {
+				display: none;
+			}
+
+			.attendance-page__slide-1 {
+				& > div {
+					& > h2 {
+						font-size: 48px !important;
+					}
+
+					& > span {
+						font-size: 22px !important;
+					}
+				}
+			}
+
+			.attendance-page__slide-4 {
+				.slide-4__chat-ctn {
+					.chat-ctn__body {
+						@include maxSize(none);
+						overflow-y: visible;
+					}
+				}
+			}
+		}
+	}
+}
+
+html {
+	font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+}
+
+* {
+	-webkit-user-drag: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 50px;
+}
+
+@import "../classPage/showChatBox";
+@import "./attendancePage";

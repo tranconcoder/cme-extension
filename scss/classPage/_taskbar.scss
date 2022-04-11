@@ -1,0 +1,185 @@
+.taskbar__left {
+	font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+
+	p {
+		margin: 0;
+	}
+
+	.left__attendance-state {
+		@include flex(row, center);
+
+		input#attendance-state {
+			display: none;
+
+			&:checked {
+				& ~ .attendance-state__btn-wrapper {
+					.btn__slide {
+						transform: translateX(32px);
+						background-color: $primaryColor;
+					}
+
+					.btn__off-state {
+						transform: scale(0) translate(0, -50%);
+						opacity: 0;
+					}
+
+					.btn__on-state {
+						transform: scale(1) translate(0, -50%);
+						opacity: 1;
+					}
+				}
+
+				& ~ .attendance-state__attendance-message {
+					&::before {
+						background-color: rgba($primaryColor, 0.3);
+					}
+
+					.attendance-message__off-state {
+						@include size(false, 0);
+						opacity: 0;
+					}
+
+					.attendance-message__on-state {
+						@include size(false, 100%);
+						opacity: 1;
+					}
+				}
+			}
+		}
+
+		.attendance-state__btn-wrapper {
+			.btn-wrapper__btn {
+				@include size(60px, 28px);
+				@include position(relative);
+				background-color: #fff;
+				border-radius: 100px;
+				display: block;
+				cursor: pointer;
+
+				.btn__off-state,
+				.btn__on-state {
+					font-size: 12px;
+					font-weight: 600;
+					transition: ease 300ms;
+				}
+
+				.btn__on-state {
+					@include position(absolute, 50%, false, false, 10px);
+					color: $primaryColorBlack;
+					opacity: 0;
+					transform: scale(0) translate(0, -50%);
+				}
+
+				.btn__slide {
+					@include size(24px);
+					@include position(absolute, 2px, false, false, 2px);
+					background-color: $secondColor;
+					border-radius: 50%;
+					transition: ease 300ms;
+				}
+
+				.btn__off-state {
+					@include position(absolute, 50%, 8px);
+					color: $secondColor;
+					transform: translate(0, -50%);
+				}
+			}
+		}
+
+		.attendance-state__attendance-message {
+			@include position(relative);
+			@include size(false, 28px);
+			margin-left: 16px;
+			padding-left: 10px;
+
+			&::before {
+				@include pseudo();
+				@include size(2px, 100%);
+				@include position(absolute, 0, calc(100% - 2px));
+				border-radius: 10px;
+				background-color: rgba($secondColor, 0.3);
+			}
+
+			.attendance-message__off-state,
+			.attendance-message__on-state {
+				@include flex(row, center);
+				font-size: 14px;
+				font-weight: 600;
+				overflow: hidden;
+				transition: ease 300ms;
+			}
+
+			.attendance-message__off-state {
+				@include size(false, 100%);
+				color: $secondColor;
+			}
+
+			.attendance-message__on-state {
+				@include size(false, 0);
+				color: $primaryColorLight;
+				opacity: 0;
+			}
+		}
+	}
+}
+
+.taskbar__center {
+	.R5ccN {
+		transform: translateX(40px);
+
+		.center__speaker-btn {
+			@include position(relative);
+			display: inline;
+			transition: ease 0.2s;
+
+			&:hover {
+				cursor: pointer;
+				filter: brightness(1.2);
+			}
+
+			input {
+				display: none;
+
+				&:checked ~ i.fa-volume-down {
+					display: block;
+					background-color: #3c4043;
+				}
+
+				&:not(:checked) ~ i.fa-volume-mute {
+					display: block;
+					background-color: #ea4335;
+				}
+			}
+
+			i {
+				@include size(18px);
+				@include position(absolute, false, 0);
+				@include marHonrizontal(8px);
+				font-size: 20px;
+				border-radius: 50%;
+				padding: 11px;
+				display: none;
+			}
+		}
+	}
+}
+
+.taskbar__right {
+	.right__btn {
+		@include size(48px);
+		@include flex(row, center, center);
+		border-radius: 50%;
+		transition: ease 0.2s;
+
+		&:hover {
+			background-color: #bdc1c621;
+			cursor: pointer;
+		}
+
+		.btn__img {
+			@include size(25px);
+			filter: brightness(0) invert(1);
+			-webkit-user-drag: none;
+		}
+	}
+}

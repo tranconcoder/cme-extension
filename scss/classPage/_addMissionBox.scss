@@ -1,0 +1,50 @@
+#add-mission-box-wrapper.add-mission-box-wrapper {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(#000, 0.3);
+	z-index: 10001;
+
+	> .add-mission-box {
+		width: 500px;
+		max-width: 90vw;
+		height: 300px;
+		max-height: 90vh;
+		background-color: #fff;
+		border-radius: 1rem;
+		margin: auto;
+
+		> .head {
+			padding-inline: 10px;
+			border-bottom: 1px solid #fafafa;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			color: $textColor;
+			font-size: 14px;
+		}
+
+		> .body {
+			> .select-file {
+				@include size(120px, 40px);
+				@include btnFloatRight($primaryColor, #fff, 2px, ease 400ms);
+				border-radius: 10px;
+
+				> p {
+					color: #fff;
+					font-size: 14px;
+					font-weight: 500;
+
+					> span {
+					}
+
+					> i {
+					}
+				}
+
+				> input {
+					display: none;
+				}
+			}
+		}
+	}
+}

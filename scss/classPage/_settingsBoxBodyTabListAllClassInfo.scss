@@ -1,0 +1,1145 @@
+&.all-class-info {
+	.input-methods {
+		@include size(100%, 160px);
+		@include position(relative);
+		@include flex(row);
+
+		& > * {
+			@include size(140px, 120px);
+			@include flex(column, center, space-evenly);
+			border-radius: 8px;
+			background-color: #fff;
+			border: solid #fff;
+			transition: ease 0.2s;
+			box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+			color: $primaryColor;
+
+			&:hover {
+				cursor: pointer;
+				border-width: 10px;
+				background-color: #fafafa;
+			}
+
+			&:not(:last-child) {
+				margin-right: 20px;
+			}
+
+			> i {
+				font-size: 40px;
+				opacity: 0.9;
+			}
+
+			> span {
+				font-weight: 500;
+			}
+		}
+
+		.input-methods__from-excel {
+			input {
+				display: none;
+			}
+		}
+	}
+
+	.add-student {
+		$height: 180px;
+
+		@include size(100%, $height);
+		@include flex(row, center);
+		@include padHorizontal(30px);
+		background-color: #fff;
+		border-radius: 8px;
+		box-sizing: border-box;
+		display: none;
+		overflow: hidden;
+		will-change: auto;
+
+		.add-student__img {
+			@include size($height);
+			padding-right: 40px;
+
+			img {
+				@include size(false, 100%);
+				padding: 34px;
+				box-sizing: border-box;
+			}
+		}
+
+		.add-student__input-range {
+			@include position(relative);
+			flex-grow: 1;
+
+			.input-range__input {
+				$inputHeight: 34px;
+				$borderSize: 2px;
+
+				@include position(relative);
+
+				& > form {
+					@include size(100%);
+					@include flex(row, center, space-between);
+
+					& > *:not(:first-child, :last-child) {
+						@include size(false, $inputHeight);
+						@include position(relative);
+
+						& > input {
+							@include size(100%);
+							border: $borderSize solid rgba($textColor, 0.6);
+							border-radius: 4px;
+							padding: 0 10px;
+							box-sizing: border-box;
+
+							&.fail {
+								border-color: red;
+
+								& ~ label {
+									color: red;
+								}
+							}
+
+							&,
+							& ~ label {
+								color: $textColor;
+								font-size: 14px;
+								font-weight: 500;
+								transition: ease 300ms;
+							}
+
+							&:not(:placeholder-shown),
+							&:focus {
+								& ~ label {
+									font-size: 13px;
+									transform: translate(-9px, -26px);
+								}
+							}
+
+							&:focus {
+								border-color: $primaryColor;
+
+								& ~ label {
+									color: $primaryColor;
+								}
+							}
+						}
+
+						label {
+							@include position(absolute, 0, false, false, 12px);
+							line-height: $inputHeight;
+							user-select: none;
+							cursor: text;
+							pointer-events: none;
+						}
+					}
+
+					.input__message-box {
+						@include size(100%, false);
+						@include position(absolute, false, 50%, 100%);
+						@include flex(row, center);
+						transform: translate(50%, -20px) scaleX(0);
+						transform-origin: left center;
+						visibility: hidden;
+						opacity: 0;
+						transition: ease 400ms;
+
+						&.show {
+							visibility: visible;
+							transform: translate(50%, -20px) scaleX(1);
+							opacity: 1;
+						}
+
+						img {
+							@include size(20px);
+						}
+
+						p {
+							color: red;
+							font-size: 12px;
+							font-weight: 500;
+							margin: 0 0 0 6px;
+							text-align: center;
+						}
+					}
+
+					.input__index-ctn {
+						@include size(24%, false);
+
+						> input {
+							&::-webkit-outer-spin-button,
+							&::-webkit-inner-spin-button {
+								-webkit-appearance: none;
+								margin: 0;
+							}
+
+							&[type="number"] {
+								-moz-appearance: textfield;
+							}
+						}
+					}
+
+					.input__name-ctn {
+						@include size(24%, false);
+					}
+
+					.input__meet-name-ctn {
+						@include size(24%, false);
+					}
+
+					.input__gmail-ctn {
+						@include size(24%, false);
+					}
+
+					.input__submit {
+						@include position(absolute, calc(100% + 10px), 0);
+
+						.submit__submit-btn {
+							@include btnFloatRight($primaryColor, #fff, 2px, ease 300ms);
+							padding: 10px 40px;
+							border-radius: 8px;
+
+							p {
+								font-size: 14px;
+								font-weight: 600;
+								margin: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		@keyframes showAddStudentBox {
+			from {
+				height: 0;
+				opacity: 0;
+			}
+			to {
+				height: $height;
+				opacity: 1;
+			}
+		}
+
+		@keyframes hideAddStudentBox {
+			from {
+				height: $height;
+				opacity: 1;
+			}
+			to {
+				height: 0;
+				opacity: 0;
+			}
+		}
+	}
+
+	#import-from-excel-state {
+		display: none;
+
+		&:checked + .import-from-excel {
+			@include maxSize(false, 2000px);
+			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+			opacity: 1;
+			padding: 30px;
+		}
+	}
+
+	.import-from-excel {
+		@include size(100%, false);
+		@include maxSize(false, 0);
+		@include flex(column, flex-start, center);
+		border-radius: 12px;
+		overflow: hidden;
+		transition: ease 500ms;
+		will-change: auto;
+		opacity: 0;
+
+		> h3 {
+			font-size: 16px;
+			margin-bottom: 15px;
+		}
+
+		> .import-from-excel__step-1 {
+			button {
+				color: $primaryColorBlack;
+				font-weight: bold;
+				text-decoration: underline;
+				border: none;
+				background-color: transparent;
+				cursor: pointer;
+			}
+		}
+
+		> .import-from-excel__step-3 {
+			> .step-3__content > p {
+				> button {
+					color: #fff;
+					padding: 4px 10px;
+					border: none;
+					background: $primaryColorBlack;
+					border: 2px solid $primaryColorBlack;
+					font-weight: 700;
+					border-radius: 6px;
+					margin-left: 10px;
+
+					&:hover {
+						cursor: pointer;
+						color: $primaryColorBlack;
+						background-color: #fff;
+					}
+
+					&:disabled {
+						filter: grayscale(1);
+
+						&:hover {
+							cursor: not-allowed;
+							color: #fff;
+							background: $primaryColorBlack;
+						}
+					}
+				}
+			}
+		}
+
+		> .import-from-excel__step-1,
+		> .import-from-excel__step-2,
+		> .import-from-excel__step-3 {
+			@include flex(row, center);
+			padding-left: 16px;
+			margin-bottom: 18px;
+
+			div:first-child {
+				font-weight: 600;
+			}
+
+			p {
+				margin-left: 20px;
+			}
+		}
+
+		> .import-from-excel__step-3 {
+			margin-bottom: 0px;
+		}
+	}
+
+	#import-with-online-form-state {
+		display: none;
+
+		&:checked + .import-with-online-form {
+			@include maxSize(false, 2000px);
+			opacity: 1;
+			padding: 40px;
+		}
+	}
+
+	.import-with-online-form {
+		@include maxSize(false, 0);
+		opacity: 0;
+		border-radius: 12px;
+		box-shadow: 0 2px 10px 0 rgba(#000, 0.3);
+		transition: ease 500ms;
+		overflow: hidden;
+		will-change: opacity transform;
+
+		> .title {
+			color: $primaryColorDark;
+			font-size: 18px;
+			font-weight: 500;
+		}
+
+		> .class-to-add-information {
+			@include flex(row, center, space-between);
+			margin-top: 40px;
+
+			> span {
+				margin-right: auto;
+				color: $textColor;
+				font-size: 15px;
+				font-weight: 500;
+			}
+
+			> .drop-list {
+				$separate: 10px;
+
+				@include position(relative);
+
+				&:hover {
+					> .current {
+						color: $primaryColor;
+						border-color: $primaryColor;
+
+						&::after {
+							content: "";
+							@include size(100%, $separate + 10px);
+							@include position(absolute, calc(100% - 5px), 0);
+						}
+					}
+
+					> .list {
+						@include maxSize(false, 300px);
+						opacity: 1;
+						padding-block: 10px;
+					}
+				}
+
+				> .current {
+					@include size(false, 34px);
+					@include minSize(150px, false);
+					@include maxSize(220px, false);
+					@include position(relative);
+					@include flexCenter();
+					color: #575757;
+					text-align: center;
+					background-color: #fff;
+					border: 2px solid #575757;
+					border-radius: 6px;
+					transition: ease 300ms;
+
+					> p {
+						@include webkitMaxLine(1);
+					}
+				}
+
+				> .list {
+					@include size(100%, false);
+					@include maxSize(false, 0);
+					@include position(absolute, 100%, 0);
+					border-radius: 6px;
+					background-color: #fff;
+					box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
+					opacity: 0;
+					transition: ease 300ms;
+					margin-top: $separate;
+					overflow: hidden;
+					z-index: 1;
+
+					> .item {
+						> label {
+							@include size(100%, false);
+							@include flex(row, center, space-between);
+							padding: 8px;
+							transition: ease 300ms;
+
+							&:hover {
+								cursor: pointer;
+								background-color: #eee;
+							}
+
+							> input {
+								display: none;
+
+								&:checked {
+									& ~ p {
+										color: $primaryColor;
+										font-weight: 500;
+									}
+
+									& ~ i {
+										opacity: 1;
+									}
+								}
+							}
+
+							> p {
+								@include webkitMaxLine(1);
+							}
+
+							> i {
+								color: $primaryColor;
+								opacity: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		> .password-to-edit {
+			@include flex(row, center, space-between);
+			margin-top: 30px;
+
+			> span {
+				color: $textColor;
+
+				> p:first-child {
+					font-size: 15px;
+					font-weight: 500;
+				}
+
+				> p:last-child {
+					font-size: 13px;
+
+					opacity: 0.7;
+				}
+			}
+
+			> .password-handle-container {
+				@include flex(row-reverse, center);
+
+				> input {
+					color: $textColor;
+					font-size: 14px;
+					text-align: center;
+					border: none;
+					border-bottom: 2px solid #cccccc;
+					outline: none;
+					margin-left: 20px;
+					padding: 2px 4px;
+					transition: ease 300ms;
+
+					&[type="password"] ~ i.show-password-btn {
+						display: flex;
+					}
+
+					&[type="text"] ~ i.hide-password-btn {
+						display: flex;
+					}
+
+					&:focus {
+						color: $primaryColor;
+						border-color: $primaryColor;
+					}
+				}
+
+				> i {
+					@include size(20px);
+					@include flex(row, center, center, true);
+					border-radius: 50%;
+					transition: ease 200ms;
+					color: #6b6b6b;
+					font-size: 14px;
+					padding: 20px;
+					letter-spacing: 2px;
+
+					&.show-password-btn,
+					&.hide-password-btn {
+						display: none;
+					}
+
+					&:hover {
+						color: $primaryColor;
+						font-size: 20px;
+						background-color: #e4e4e4;
+						cursor: pointer;
+					}
+				}
+			}
+		}
+
+		> .accept-new-request {
+			@include flex(row, center, space-between);
+			margin-top: 30px;
+
+			> span {
+				color: $textColor;
+
+				> p:first-child {
+					font-size: 15px;
+					font-weight: 500;
+				}
+
+				> p:last-child {
+					font-size: 13px;
+
+					opacity: 0.7;
+				}
+			}
+
+			> .accept-new-request-btn {
+				> input[type="checkbox"] {
+					display: none;
+
+					&:checked + .slider {
+						background-color: $primaryColor;
+
+						&::before {
+							transform: translate(31px, -50%);
+						}
+					}
+				}
+
+				> .slider {
+					@include size(54px, 26px);
+					border-radius: 100px;
+					background-color: #ccc;
+					position: relative;
+					transition: ease 200ms;
+					cursor: pointer;
+
+					&::before {
+						content: "";
+						@include size(20px);
+						@include position(absolute, 50%, false, false, 0);
+						transform: translate(3px, -50%);
+						background-color: #fff;
+						border-radius: 50%;
+						transition: ease 200ms;
+					}
+				}
+			}
+		}
+
+		> .online-form-url-wrapper {
+			display: flex;
+			align-items: center;
+			padding: 12px 20px;
+			border-radius: 6px;
+			background: $primaryColor;
+			color: #fff;
+			margin-top: 50px;
+
+			> .online-form-url {
+				flex: 1;
+				overflow: hidden;
+
+				> p {
+					@include webkitMaxLine(1);
+					word-wrap: break-word;
+					color: #fff;
+					text-decoration: underline;
+				}
+			}
+
+			> i {
+				@include size(30px);
+				@include flexCenter();
+				border-radius: 50%;
+				transition: ease 300ms;
+				box-sizing: content-box;
+
+				&.copy-btn {
+					margin-right: 10px;
+				}
+
+				&:hover {
+					cursor: pointer;
+					background-color: rgba(#fff, 0.2);
+					padding: 6px;
+				}
+			}
+		}
+
+		> .tutorial {
+			margin-top: 60px;
+
+			> .title {
+				font-size: 16px;
+			}
+
+			> .step-container {
+				> * {
+					display: flex;
+					align-items: center;
+					padding: 10px 15px;
+					border-radius: 6px;
+					font-size: 15px;
+					font-weight: 500;
+					color: #00469b;
+					box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+					margin-top: 10px;
+
+					> span:first-child {
+						@include size(40px);
+						@include flexCenter();
+						color: #fff;
+						font-size: 18px;
+						background-color: $primaryColor;
+						border-radius: 50%;
+					}
+
+					> span:last-child {
+						color: $textColor;
+						flex: 1;
+					}
+
+					&:not(:nth-child(2n)) {
+						> span:first-child {
+							margin-right: 16px;
+						}
+					}
+
+					&:nth-child(2n) {
+						flex-direction: row-reverse;
+
+						> span:first-child {
+							margin-left: 16px;
+						}
+
+						> span:last-child {
+							text-align: right;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.class-info-is-updating-by-online-form {
+		max-height: 0;
+		border-radius: 10px;
+		background-color: rgba($secondColor, 0.2);
+		box-shadow: -2px 2px 4px 0 rgba(0, 0, 0, 0.1);
+		opacity: 0;
+		overflow: hidden;
+		transition: ease 300ms;
+
+		&.show {
+			max-height: 100px;
+			opacity: 1;
+			padding: 10px 20px;
+			margin-bottom: 10px;
+		}
+
+		> p {
+			color: $secondColor;
+			font-weight: 500;
+
+			> label {
+				color: $primaryColor;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.table {
+		margin-top: 30px;
+
+		.table__student-table {
+			@include size(100%, false);
+			table-layout: auto;
+
+			.student-table__header {
+				.header__caption {
+					.caption__content {
+						font-size: 18px;
+						font-weight: 500;
+						text-align: center;
+						padding-bottom: 20px;
+					}
+				}
+
+				.header__tools-bar {
+					.tools-bar__wrapper {
+						padding-bottom: 10px;
+
+						.wrapper__bar {
+							@include size(false, 50px);
+							@include flex(row, center, space-between);
+							padding: 0 10px;
+							border-radius: 10px;
+							background-color: #fff;
+
+							.bar__left-slide {
+								@include flex(row, center);
+
+								.left-slide__select-all,
+								.left-slide__unselect-all {
+									@include position(relative);
+									padding: 7px 12px;
+									border-radius: 8px;
+									overflow: hidden;
+
+									&::before {
+										@include pseudo();
+										@include size(100%);
+										@include position(absolute, 0, 100%);
+										background-color: #fff;
+										transition: transform ease 300ms;
+										z-index: 1;
+									}
+
+									&:not(.disabled):hover {
+										cursor: pointer;
+
+										&::before {
+											transform: translateX(100%);
+										}
+									}
+
+									&.disabled {
+										color: #fff;
+										border-color: #a8a8a8;
+										background-color: #a8a8a8;
+									}
+
+									& > p {
+										@include position(relative);
+										color: #fff;
+										font-size: 13px;
+										font-weight: 500;
+										margin: 0;
+										transition: ease 300ms;
+										z-index: 2;
+									}
+								}
+
+								.left-slide__select-all {
+									border: 2px solid $primaryColorBlack;
+									background-color: $primaryColorBlack;
+									margin-right: 6px;
+
+									&:not(.disabled):hover {
+										& > p {
+											color: $primaryColorBlack;
+										}
+									}
+								}
+
+								.left-slide__unselect-all {
+									border: 2px solid #da2424;
+									background-color: #da2424;
+									margin-right: 20px;
+
+									&:not(.disabled):hover {
+										& > p {
+											color: #da2424;
+										}
+									}
+								}
+
+								.left-slide__selected-count {
+									font-size: 14px;
+									color: $textColorBlack;
+								}
+							}
+
+							.bar__right-slide {
+								cursor: pointer;
+
+								& > div {
+									@include size(40px);
+									@include flex(row, center, center, true);
+
+									&:not(:first-child) {
+										margin-left: 10px;
+									}
+
+									& > div {
+										@include size(32px);
+										@include flex(row, center, center);
+										border: 2px solid $primaryColor;
+										border-radius: 50%;
+										transition: ease 300ms;
+
+										&.disabled {
+											border-color: #a8a8a8;
+
+											img {
+												filter: grayscale(1);
+											}
+										}
+
+										&:not(.disabled):hover {
+											background-color: $primaryColor;
+											border-color: transparent;
+
+											img {
+												filter: brightness(0) invert(1);
+											}
+										}
+
+										img {
+											@include size(18px);
+											transition: filter ease 300ms;
+											-webkit-user-drag: none;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				.header__class-list {
+					.class-list__wrapper {
+						padding-bottom: 10px;
+
+						.wrapper__bar {
+							@include size(100%, 70px);
+							@include flex(row, center, space-between);
+							padding: 0 15px;
+							border-radius: 10px;
+							background-color: #fff;
+							box-sizing: border-box;
+
+							.bar__left-slide .left-slide__class-button-container .class-list__class,
+							.right-slide__add-class-btn {
+								@include size(false, 36px);
+								@include flex(row, center);
+								@include padHorizontal(20px);
+								background-color: #fff;
+								border: 2px solid $primaryColor;
+								box-sizing: border-box;
+								border-radius: 4px;
+								cursor: pointer;
+							}
+
+							.bar__left-slide {
+								@include size(0px, 100%);
+								padding: 0;
+								flex-grow: 1;
+
+								.left-slide__class-button-container {
+									@include size(100%);
+									@include flex(row, center);
+									list-style-type: none;
+									padding: 0;
+									overflow-x: auto;
+
+									& > *:not(:first-child) {
+										margin-left: 10px;
+									}
+
+									.class-list__class {
+										@include size(false, 40px);
+										@include flex(row, center);
+										@include position(relative);
+
+										&,
+										& > * {
+											transition: ease 300ms;
+										}
+
+										&:hover,
+										&.active {
+											background-color: $primaryColor;
+
+											> img {
+												filter: brightness(0) invert(1);
+											}
+
+											p {
+												color: #fff;
+											}
+										}
+
+										.nav-ctn {
+											@include flex(row, center, center);
+											@include position(absolute, -11px, -11px);
+											background-color: #fff;
+											border-radius: 20px;
+
+											.nav-ctn__close,
+											.nav-ctn__edit {
+												@include size(20px);
+												@include flex(row, center, center);
+												border-radius: 50%;
+												background-color: #fff;
+
+												&:hover {
+													background-color: $primaryColorLight;
+												}
+
+												img {
+													@include size(12px);
+												}
+											}
+										}
+
+										> img {
+											@include size(20px);
+											-webkit-user-drag: none;
+										}
+
+										p {
+											color: $primaryColor;
+											font-size: 14px;
+											font-weight: 500;
+											margin: 0 0 0 8px;
+										}
+									}
+								}
+							}
+
+							.bar__right-slide {
+								margin-left: 30px;
+
+								.right-slide__add-class-btn {
+									@include size(150px, false);
+
+									&:hover {
+										background-color: $primaryColor;
+
+										img {
+											filter: brightness(0) invert(1);
+										}
+
+										p {
+											color: #fff;
+										}
+									}
+
+									img {
+										@include size(20px);
+										transition: ease 300ms;
+									}
+
+									p {
+										color: $primaryColor;
+										font-size: 14px;
+										font-weight: 600;
+										margin: 0 0 0 10px;
+										transition: ease 300ms;
+									}
+								}
+							}
+						}
+					}
+				}
+
+				.header__row {
+					@include size(false, 50px);
+					background-color: #fff;
+
+					& > * {
+						text-align: center;
+
+						&:first-child {
+							border-radius: 10px 0 0 0;
+						}
+
+						&:last-child {
+							border-radius: 0 10px 0 0;
+						}
+					}
+
+					.row__index {
+						@include size(10%, false);
+					}
+
+					.row__name {
+						@include size(22%, false);
+					}
+
+					.row__meet-name {
+						@include size(22%, false);
+					}
+
+					.row__gmail {
+						@include size(24%, false);
+					}
+
+					.row__exist-state {
+						@include size(15%, false);
+					}
+
+					.row__select {
+						@include size(7%, false);
+					}
+				}
+			}
+
+			.student-table__body .body__row {
+				@include size(false, 42px);
+				background-color: #fff;
+
+				&.not-exist .row__exist-state {
+					color: $secondColor;
+				}
+
+				&:hover {
+					cursor: pointer;
+					background-color: rgb(245, 245, 245);
+
+					.row__select .select__icon img {
+						opacity: 0.2;
+					}
+				}
+
+				& > * {
+					@include position(relative);
+
+					& > input {
+						text-overflow: ellipsis;
+						overflow: hidden;
+					}
+				}
+
+				.row__index {
+					input {
+						text-align: center;
+					}
+				}
+
+				.row__exist-state {
+					color: $primaryColor;
+					font-weight: 600;
+					text-align: center;
+				}
+
+				.row__select {
+					text-align: center;
+					font-size: 14px;
+				}
+
+				.row__index,
+				.row__name,
+				.row__meet-name,
+				.row__gmail {
+					input {
+						@include size(100%, 42px);
+						@include position(relative);
+						font-size: 14px;
+						border: none;
+						background-color: transparent;
+						cursor: text;
+						z-index: 2;
+
+						&:hover {
+							color: #575757;
+							font-weight: 600;
+
+							& ~ div {
+								width: 80%;
+							}
+						}
+
+						&:focus {
+							color: $primaryColorBlack;
+							font-weight: 600;
+
+							& ~ div {
+								width: 100%;
+								background-color: $primaryColorBlack;
+							}
+						}
+					}
+
+					div {
+						@include size(0, 2px);
+						@include position(absolute, 50%);
+						transform: translateY(calc(-50% + 14px));
+						background-color: #575757;
+						border-radius: 2px;
+						transition: width ease 0.3s;
+						z-index: 1;
+					}
+				}
+
+				.row__select .select__icon {
+					pointer-events: none;
+
+					input {
+						display: none;
+
+						&:checked ~ img {
+							opacity: 1;
+						}
+					}
+
+					img {
+						@include size(18px);
+						opacity: 0;
+					}
+				}
+			}
+
+			.student-table__foot {
+				@include size(false, 10px);
+				background-color: #fff;
+
+				& > tr > td {
+					border-radius: 0 0 10px 10px;
+				}
+			}
+		}
+	}
+}
